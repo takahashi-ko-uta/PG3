@@ -1,28 +1,56 @@
 #include <stdio.h>
+#include <Windows.h>
+#include <time.h>
 
-int Recursive(int n,int x)
+typedef void (*PFunc)(int*);
+
+void callback1(int *s)
 {
-	
-	if(n <= 1)
-	{
-		return x;
-	}
-
-	x = x * 2 - 50;
-
-	return(Recursive(n - 1,x));
+	printf("%d•bŒã‚ÉŽÀs\n", *s);
 }
 
+void setTimeout(PFunc p,int second)
+{
+	Sleep(second * 1000);
+	p(&second);
+}
 
 
 int main()
 {
-	int n = 5;
-	int x = 100;
-	int result;
+	srand(time(nullptr));
+	int number = rand() % 6 + 1;//1`6‚Ìƒ‰ƒ“ƒ_ƒ€‚È”Žš‚ð¶¬
+	int num;
 
-	result = Recursive(n,x);
-	printf("%dŽžŠÔ–Ú‚ÌŽž‹‹‚Í = %d‰~‚Å‚·\n", n, result);
+	printf("strat\n");
+	printf("ƒTƒCƒRƒ‚Ì–Ú‚ð—\‘z\n‹ô” = 0 Šï” = 1‚ð“ü—Í\n");
+	scanf_s("%d", &num);
+	if(num == 0)
+	{
+		printf("—\‘z : ‹ô”\n");
+	}
+	else
+	{
+		printf("—\‘z : Šï”\n");
+	}
+	
+	PFunc p;
+	p = callback1;
+	setTimeout(p, 3);
+
+	if((number%2) == 0)//‹ô”
+	{
+		printf("³‰ð : ’š\n");
+	}
+	else               //Šï”
+	{
+		printf("³‰ð : ”¼\n");
+	}
+	
+
+	
+
+	
 	
 	return (0);
 }
