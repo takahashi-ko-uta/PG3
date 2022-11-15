@@ -1,74 +1,58 @@
 #include <stdio.h>
-#include <Windows.h>
-#include <time.h>
-
-typedef void (*PFunc)(int*);
-
-void callback1(int *s)
-{
-	printf("%d秒後に実行\n", *s);
-}
-
-void setTimeout(PFunc p,int second)
-{
-	Sleep(second * 1000);
-	p(&second);
-}
-
+#include <vector>
+#include <list>
+#include <iostream>
+using namespace std;
 
 int main()
-{
-	srand(time(nullptr));
-	int dice = rand() % 6 + 1;//1～6のランダムな数字を生成
-	int num;
-
-	printf("strat\n");
-	printf("サイコロの目を予想\n偶数 = 0 奇数 = 1を入力\n");
-	scanf_s("%d", &num);
-	if(num == 0)
-	{
-		printf("予想 : 偶数\n");
-	}
-	else
-	{
-		printf("予想 : 奇数\n");
-	}
+{	
+	printf("==1970==\n");
+	std::list<string>lst = {
+	"oosaki","gotannda","meguro","ebisu","sibuya","harazyuku",
+	"yoyogi","sinnzyuku","sinnookubo","takadanobaba","meziro",
+	"ikebukuro","ootuka","sugamo","komagome","tabata",
+	"nippori","uguisudani","ueno","okatimati","akihabara","kannda",
+	"toukyou","yuurakutyou","sinnbasi","hamamatutyou","tamata","sinagawa"
+	};
 	
-	PFunc p;
-	p = callback1;
-	setTimeout(p, 3);
+	for (auto itr = lst.begin(); itr != lst.end(); ++itr) {
+		std::cout << *itr << "\n";
+	}
 
-	printf("出たサイコロの目:%d\n", dice);
-	if((dice%2) == 0)//偶数
-	{
-		if(num == 0)
+	printf("==2019==\n");
+
+	for(std::list<string>::iterator itr = lst.begin();itr != lst.end();++itr){	//西日暮里を追加
+		if(*itr == "nippori")
 		{
-			printf("正解\n");
-		}
-		else
-		{
-			printf("不正解\n");
+			itr = lst.insert(itr, "nisinippori");
+			++itr;
 		}
 	}
-	else               //奇数
-	{
-		if (num == 1)
+
+	for (auto itr = lst.begin(); itr != lst.end(); ++itr) {
+		std::cout << *itr << "\n";
+	}
+
+	printf("==2022==\n");
+
+	for (std::list<string>::iterator itr = lst.begin(); itr != lst.end(); ++itr) {	//ゲートウェイを追加
+		if (*itr == "sinagawa")
 		{
-			printf("正解\n");
-		}
-		else
-		{
-			printf("不正解\n");
+			itr = lst.insert(itr, "takanawage-toway");
+			++itr;
 		}
 	}
-	
 
-	
+	for (auto itr = lst.begin(); itr != lst.end(); ++itr) {
+		std::cout << *itr << "\n";
+	}
 
-	
-	
-	return (0);
+	system("pause");
+	return 0;
 }
+	
+
+
 
 
 
