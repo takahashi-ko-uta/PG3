@@ -43,7 +43,7 @@ int main()
 }
 	
 
-CELL* getInsertCellAddress(CELL* endCELL, int iterator) {
+CELL* getInsertListAddress(CELL* endCELL, int iterator) {
 	for (int i = 0; i < iterator; i++) {
 		if (endCELL->next) {
 			endCELL = endCELL->next;
@@ -58,14 +58,18 @@ CELL* getInsertCellAddress(CELL* endCELL, int iterator) {
 void create(CELL *currentCell,int x) {
 	CELL* newCell;
 	newCell = (CELL*)malloc(sizeof(CELL));
-	newCell->val = x;
-	newCell->prev = currentCell;
-	newCell->next = currentCell->next;
-
+	if (newCell != nullptr)
+	{
+		newCell->val = x;
+		newCell->prev = currentCell;
+		newCell->next = currentCell->next;
+	}
+	
 	if (currentCell->next) {
 		CELL* nextCell = currentCell->next;
 		nextCell->prev = newCell;
 	}
+	//currentCell->next = newCell;
 }
 
 void index(CELL* endCell) {
