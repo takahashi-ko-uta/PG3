@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <vector>
 #include <list>
 #include <iostream>
@@ -7,58 +8,79 @@ using namespace std;
 void* malloc(size_t size);
 
 typedef struct cell{
-	char str[8];
+	int val;
+	struct cell* prev;
 	struct cell* next;
 }CELL;
 
-void create(CELL* endCell, const char* buf);
+void create(CELL* endCELL, int iterator);
 void index(CELL* endCell);
+CELL* getInsertListAddress(CELL* endCELL, int iterator);
 
 int main()
 {	
-	char str[8];
+	int iterator;
+	int inputValue;
+	CELL* insertCell;
+
 	CELL head;
 	head.next = nullptr;
-	
+
 	while (true){
-		printf("’Ç‰Á‚·‚é’l‚ğ“ü—Í:");
-		scanf_s("%s", str, 8);
+		printf("‰½”Ô–Ú‚ÌƒZƒ‹‚ÌŒã‚ë‚É‘}“ü‚µ‚Ü‚·‚©?\n");
+		scanf_s("%d", &iterator);
 
-		//è‡3
-		create(&head, str);
+		printf("‘}“ü‚·‚é’l‚ğ“ü—Í‚µ‚Ä‚­‚¾‚³‚¢\n");
+		scanf_s("%d", &inputValue);
 
-		//è‡‚S
+		insertCell = getInsertListAddress(&head,iterator);
+		create(insertCell, inputValue);
+
 		index(&head);
-
 	}
-	
+
 	return 0;
 }
 	
 
-void create(CELL *endCell, const char *buf) {
+CELL* getInsertCellAddress(CELL* endCELL, int iterator) {
+	for (int i = 0; i < iterator; i++) {
+		if (endCELL->next) {
+			endCELL = endCELL->next;
+		}
+		else {
+			break;
+		}
+	}
+	return endCELL;
+}
+
+void create(CELL *currentCell,int x) {
 	CELL* newCell;
-	//V‹Kì¬‚·‚éƒZƒ‹•ª‚Ìƒƒ‚ƒŠ‚ğŠm•Û‚·‚é
 	newCell = (CELL*)malloc(sizeof(CELL));
+	newCell->val = x;
+	newCell->prev = currentCell;
+	newCell->next = currentCell->next;
 
-	strcpy_s(newCell->str, 8, buf);
-	//newCell->str = buf;
-	newCell->next = nullptr;
-
-	while (endCell->next != nullptr) {
-		endCell = endCell->next;
+	if (currentCell->next) {
+		CELL* nextCell = currentCell->next;
+		nextCell->prev = newCell;
 	}
-
 }
 
-void index(CELL *endCell) {
-	while (endCell->next != nullptr ){
+void index(CELL* endCell) {
+	int no = 1;
+	while (endCell->next != nullptr){
 		endCell = endCell->next;
-
-		printf("%s\n", endCell->str);
+		printf("%d", no);
+		printf("%p", endCell->prev);
+		printf("%5d", endCell->val);
+		printf("(%p)", endCell);
+		printf("%p\n", endCell->next);
+		no++;
 	}
-	printf("-------------------------------\n");
 }
+
 
 
 
