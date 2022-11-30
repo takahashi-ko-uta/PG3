@@ -7,25 +7,25 @@ using namespace std;
 void* malloc(size_t size);
 
 typedef struct cell{
-	int val;
+	char str[8];
 	struct cell* next;
 }CELL;
 
-void create(CELL* head, int x);
-void index(CELL* head);
+void create(CELL* endCell, const char* buf);
+void index(CELL* endCell);
 
 int main()
 {	
-	int val;
+	char str[8];
 	CELL head;
 	head.next = nullptr;
 	
 	while (true){
 		printf("追加する値を入力:");
-		scanf_s("%d", &val);
+		scanf_s("%s", str, 8);
 
 		//手順3
-		create(&head, val);
+		create(&head, str);
 
 		//手順４
 		index(&head);
@@ -36,25 +36,26 @@ int main()
 }
 	
 
-void create(CELL* head, int x) {
-	CELL* cell;
+void create(CELL *endCell, const char *buf) {
+	CELL* newCell;
 	//新規作成するセル分のメモリを確保する
-	cell = (CELL*)malloc(sizeof(CELL));
+	newCell = (CELL*)malloc(sizeof(CELL));
 
-	cell->val = x;
-	cell->next = nullptr;
-	//最後(最新)のセルのアドレスの1つ目の処理は引数から持ってきた
-	//リストのうち最初のセルのアドレスが該当する
-	while (head->next != nullptr){
-		head = head->next;
+	strcpy_s(newCell->str, 8, buf);
+	//newCell->str = buf;
+	newCell->next = nullptr;
+
+	while (endCell->next != nullptr) {
+		endCell = endCell->next;
 	}
-	head->next = cell;
+
 }
 
-void index(CELL* head) {
-	while (head->next != nullptr){
-		head = head->next;
-		printf("%d\n", head->val);
+void index(CELL *endCell) {
+	while (endCell->next != nullptr ){
+		endCell = endCell->next;
+
+		printf("%s\n", endCell->str);
 	}
 	printf("-------------------------------\n");
 }
