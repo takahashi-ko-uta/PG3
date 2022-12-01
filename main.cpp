@@ -19,6 +19,7 @@ CELL* getInsertListAddress(CELL* endCELL, int iterator);
 
 int main()
 {	
+	int operate;
 	int iterator;
 	int inputValue;
 	CELL* insertCell;
@@ -27,16 +28,31 @@ int main()
 	head.next = nullptr;
 
 	while (true){
-		printf("âΩî‘ñ⁄ÇÃÉZÉãÇÃå„ÇÎÇ…ë}ì¸ÇµÇ‹Ç∑Ç©?\n");
-		scanf_s("%d", &iterator);
+		printf("===ëÄçÏê‡ñæ===\n");
+		printf("1:óvëfÇï\é¶\n");
+		printf("2:óvëfÇí«â¡\n");
+		printf("=============\n");
 
-		printf("ë}ì¸Ç∑ÇÈílÇì¸óÕÇµÇƒÇ≠ÇæÇ≥Ç¢\n");
-		scanf_s("%d", &inputValue);
+		printf("ëÄçÏÇì¸óÕÇµÇƒÇ≠ÇæÇ≥Ç¢:");
+		scanf_s("%d", &operate);
 
-		insertCell = getInsertListAddress(&head,iterator);
-		create(insertCell, inputValue);
 
-		index(&head);
+		switch (operate)
+		{
+		case 1:
+			index(&head);
+			break;
+		case 2:
+			printf("âΩî‘ñ⁄ÇÃÉZÉãÇÃå„ÇÎÇ…ë}ì¸ÇµÇ‹Ç∑Ç©?\n");
+			scanf_s("%d", &iterator);
+
+			printf("ë}ì¸Ç∑ÇÈílÇì¸óÕÇµÇƒÇ≠ÇæÇ≥Ç¢\n");
+			scanf_s("%d", &inputValue);
+
+			insertCell = getInsertListAddress(&head, iterator);
+			create(insertCell, inputValue);
+			break;
+		}
 	}
 
 	return 0;
@@ -69,20 +85,18 @@ void create(CELL *currentCell,int x) {
 		CELL* nextCell = currentCell->next;
 		nextCell->prev = newCell;
 	}
-	//currentCell->next = newCell;
+	currentCell->next = newCell;
 }
 
 void index(CELL* endCell) {
 	int no = 1;
 	while (endCell->next != nullptr){
 		endCell = endCell->next;
-		printf("%d", no);
-		printf("%p", endCell->prev);
-		printf("%5d", endCell->val);
-		printf("(%p)", endCell);
-		printf("%p\n", endCell->next);
+		printf("%d:", no);
+		printf("%d\n", endCell->val);
 		no++;
 	}
+	printf("óvëfêî:%d\n", no - 1);
 }
 
 
