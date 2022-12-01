@@ -92,7 +92,7 @@ void index(CELL* endCell) {
 	int no = 1;
 	while (endCell->next != nullptr){
 		endCell = endCell->next;
-		printf("%d:", no);
+		printf("%d:", no-1);
 		printf("%d\n", endCell->val);
 		no++;
 	}
