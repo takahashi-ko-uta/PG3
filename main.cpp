@@ -1,107 +1,27 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <vector>
-#include <list>
-#include <iostream>
-using namespace std;
-
-void* malloc(size_t size);
-
-typedef struct cell{
-	int val;
-	struct cell* prev;
-	struct cell* next;
-}CELL;
-
-void create(CELL* endCELL, int iterator);
-void index(CELL* endCell);
-CELL* getInsertListAddress(CELL* endCELL, int iterator);
+#include "test.h"
 
 int main()
-{	
-	int operate;
-	int iterator;
-	int inputValue;
-	CELL* insertCell;
+{
+    SceneChange* sceneManager = SceneChange::GetInstance();
+    while (true)
+    {
+        sceneManager->PrintScene();
 
-	CELL head;
-	head.next = nullptr;
+    input:
+        int putNum = 0;
 
-	while (true){
-		printf("===ëÄçÏê‡ñæ===\n");
-		printf("1:óvëfÇï\é¶\n");
-		printf("2:óvëfÇí«â¡\n");
-		printf("=============\n");
+        printf("0~3ÇâüÇµÇƒÇ≠ÇæÇ≥Ç¢\n");
 
-		printf("ëÄçÏÇì¸óÕÇµÇƒÇ≠ÇæÇ≥Ç¢:");
-		scanf_s("%d", &operate);
+        scanf_s("%d", &putNum);
 
-
-		switch (operate)
-		{
-		case 1:
-			index(&head);
-			break;
-		case 2:
-			printf("âΩî‘ñ⁄ÇÃÉZÉãÇÃå„ÇÎÇ…ë}ì¸ÇµÇ‹Ç∑Ç©?\n");
-			scanf_s("%d", &iterator);
-
-			printf("ë}ì¸Ç∑ÇÈílÇì¸óÕÇµÇƒÇ≠ÇæÇ≥Ç¢\n");
-			scanf_s("%d", &inputValue);
-
-			insertCell = getInsertListAddress(&head, iterator);
-			create(insertCell, inputValue);
-			break;
-		}
-	}
-
-	return 0;
+        switch (putNum)
+        {
+        case 0:    case 1:    case 2:    case 3://0Å`3ÇÃÇ¢Ç∏ÇÍÇ©ÇÃÉ{É^ÉìâüÇµÇΩÇ∆Ç´
+            sceneManager->ChangeScene(putNum);
+            break;
+        }
+    }
 }
-	
-
-CELL* getInsertListAddress(CELL* endCELL, int iterator) {
-	for (int i = 0; i < iterator; i++) {
-		if (endCELL->next) {
-			endCELL = endCELL->next;
-		}
-		else {
-			break;
-		}
-	}
-	return endCELL;
-}
-
-void create(CELL *currentCell,int x) {
-	CELL* newCell;
-	newCell = (CELL*)malloc(sizeof(CELL));
-	if (newCell != nullptr)
-	{
-		newCell->val = x;
-		newCell->prev = currentCell;
-		newCell->next = currentCell->next;
-	}
-	
-	if (currentCell->next) {
-		CELL* nextCell = currentCell->next;
-		nextCell->prev = newCell;
-	}
-	currentCell->next = newCell;
-}
-
-void index(CELL* endCell) {
-	int no = 1;
-	while (endCell->next != nullptr){
-		endCell = endCell->next;
-		printf("%d:", no-1);
-		printf("%d\n", endCell->val);
-		no++;
-	}
-	printf("óvëfêî:%d\n", no - 1);
-}
-
-
-
-
 
 
 
