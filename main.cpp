@@ -1,26 +1,19 @@
-#include "test.h"
+#include "Circle.h"
+#include "Rectangle.h"
+#include <stdio.h>
 
 int main()
 {
-    SceneChange* sceneManager = SceneChange::GetInstance();
-    while (true)
-    {
-        sceneManager->PrintScene();
+    Circle circle;
+    Rectangle rectangle;
 
-    input:
-        int putNum = 0;
+    circle.size();
+    circle.draw();
+    printf("---------------\n");
+    rectangle.size();
+    rectangle.draw();
 
-        printf("0~3‚ð‰Ÿ‚µ‚Ä‚­‚¾‚³‚¢\n");
-
-        scanf_s("%d", &putNum);
-
-        switch (putNum)
-        {
-        case 0:    case 1:    case 2:    case 3://0`3‚Ì‚¢‚¸‚ê‚©‚Ìƒ{ƒ^ƒ“‰Ÿ‚µ‚½‚Æ‚«
-            sceneManager->ChangeScene(putNum);
-            break;
-        }
-    }
+    return 0;
 }
 
 
